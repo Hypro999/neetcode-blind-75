@@ -1,4 +1,4 @@
-class Solution {
+class MySolution {
     public boolean checkStraightLine(int[][] coordinates) {
         double divisor = coordinates[1][0] - coordinates[0][0];
         if (divisor == 0) {
