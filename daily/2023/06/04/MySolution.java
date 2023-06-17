@@ -1,6 +1,6 @@
 import java.util.Stack;
 
-class Solution {
+class MySolution {
     public int findCircleNum(int[][] isConnected) {
         int islandCount = 0;
         int n = isConnected.length;
