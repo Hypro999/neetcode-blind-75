@@ -1,0 +1,12 @@
+# 128. Longest Consecutive Sequence
+
+https://leetcode.com/problems/longest-consecutive-sequence/description/
+
+Topics:
+
+-   Sets
+
+or
+
+-   Hashmaps
+-   Dynamic Programming
