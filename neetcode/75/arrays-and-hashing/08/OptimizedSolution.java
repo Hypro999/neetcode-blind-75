@@ -1,15 +1,15 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
-/** This is more optimized because it takes less memory. */
+
 public class OptimizedSolution {
 
     public int longestConsecutive(int[] nums) {
         final int n = nums.length;
 
-        Set<Integer> existingNumbers = new HashSet<>();
+        Map<Integer, Integer> existingNumbers = new HashMap<>();
         for (int i = 0; i < n; i++) {
-            existingNumbers.add(nums[i]);
+            existingNumbers.put(nums[i], null);
         }
 
         // Find the longest sequence length;
@@ -24,22 +24,18 @@ public class OptimizedSolution {
         return longestSequenceLength;
     }
 
-    private int determineSequenceLength(int target, Set<Integer> existingNumbers) {
-        int sequenceLength = 1;
-        existingNumbers.remove(target);
+    private int determineSequenceLength(int target, Map<Integer, Integer> existingNumbers) {
 
-        int cursor = target + 1;
-        while (existingNumbers.contains(cursor)) {
-            existingNumbers.remove(cursor);
-            sequenceLength++;
-            cursor++;
+        // Base case: we find a value that's not in existingNumbers.
+        if (!existingNumbers.containsKey(target)) {
+            return 0;
         }
 
-        cursor = target - 1;
-        while (existingNumbers.contains(cursor)) {
-            existingNumbers.remove(cursor);
-            sequenceLength++;
-            cursor--;
+        Integer sequenceLength = existingNumbers.get(target);
+        if (sequenceLength == null) {
+            // Cache miss. Compute it.
+            sequenceLength = determineSequenceLength(target + 1, existingNumbers) + 1;
+            existingNumbers.put(target, sequenceLength);
         }
 
         return sequenceLength;

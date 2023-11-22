@@ -1,7 +1,7 @@
 ### Min Heap in Java and Python:
 
     - Python: heapq and normal lists
-    - Java: PriorityQueue
+    - Java: PriorityQueue (min heap)
 
 ### Heaps and time complexity:
 
