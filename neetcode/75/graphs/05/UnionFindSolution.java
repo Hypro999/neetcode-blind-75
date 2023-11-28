@@ -5,7 +5,7 @@ class UnionFindSolution {
         int numConnectedComponents = n;
 
         int[] parent = new int[n];
-        int[] rank = new int[n];
+        int[] rank = new int[n]; // optional: Union by Rank optimization.
 
         for (int i = 0; i < n; i++) {
             parent[i] = i;
@@ -44,7 +44,7 @@ class UnionFindSolution {
 
     private int findParent(int child, int[] parent) {
         while (child != parent[child]) {
-            parent[child] = parent[parent[child]]; // optional: path compression.
+            parent[child] = parent[parent[child]]; // optional: Path Compression optimization.
             child = parent[child];
         }
         return child;
