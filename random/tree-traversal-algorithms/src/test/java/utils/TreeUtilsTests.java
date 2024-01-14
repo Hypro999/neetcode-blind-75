@@ -10,7 +10,8 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import structures.TreeNode;
 
-public class TestTreeUtils {
+
+public class TreeUtilsTests {
 
     @Test
     public void testDeserialize_empty() {
@@ -34,7 +35,7 @@ public class TestTreeUtils {
     }
 
     @Test
-    public void testDeserialize_nodeTree() {
+    public void testDeserialize_singleNodeTree() {
         List<Integer> wantSerializedTree = Arrays.asList(new Integer[]{1, null, null});
         TreeNode<Integer> root = TreeUtils.deserialize(wantSerializedTree);
         List<Integer> gotSerializedTree = TreeUtils.serialize(root);
