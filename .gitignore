@@ -1,3 +1,5 @@
 .vscode/
-*.class
 .mypy_cache/
+
+*.class
+*.pyc
