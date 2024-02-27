@@ -1,0 +1,10 @@
+"leetcode"
+["leet","code"]
+"applepenapple"
+["apple","pen"]
+"catsandog"
+["cats","dog","sand","and","cat"]
+"aaaaaaa"
+["aaaa","aaa"]
+"catsandog"
+["cats","dog","sand","and","cat", "og"]
