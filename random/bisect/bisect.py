@@ -6,6 +6,9 @@ def bisect_left(li, x):
     while lo < hi:
         mid = (lo + hi) // 2
         if li[mid] < x:
+            # The reason we have to do mid + 1 is because is some cases, mid is equal
+            # to lo, but mid can never be hi unless the length of the array/list is 1.
+            # This is because `// 2` will round DOWN.
             lo = mid + 1
         else:
             hi = mid
