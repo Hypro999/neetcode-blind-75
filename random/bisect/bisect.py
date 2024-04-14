@@ -16,10 +16,10 @@ def bisect_right(li, x):
     hi = len(li)
     while lo < hi:
         mid = (lo + hi) // 2
-        if li[mid] > x:
-            hi = mid
-        else:
+        if li[mid] <= x:
             lo = mid + 1
+        else:
+            hi = mid
     return lo
 
 class TestBinarySearch(unittest.TestCase):
