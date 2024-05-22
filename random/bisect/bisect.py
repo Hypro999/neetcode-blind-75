@@ -1,29 +1,34 @@
 import unittest
 
+
 def bisect_left(li, x):
+    """li[lo] >= x will always hold true when lo != len(li)"""
     lo = 0
     hi = len(li)
     while lo < hi:
         mid = (lo + hi) // 2
-        if li[mid] < x:
+        if li[mid] >= x:
+            hi = mid
+        else:
             # The reason we have to do mid + 1 is because is some cases, mid is equal
             # to lo, but mid can never be hi unless the length of the array/list is 1.
             # This is because `// 2` will round DOWN.
             lo = mid + 1
-        else:
-            hi = mid
     return lo
 
+
 def bisect_right(li, x):
+    """li[lo] > x will always hold true when lo != len(li)"""
     lo = 0
     hi = len(li)
     while lo < hi:
         mid = (lo + hi) // 2
-        if li[mid] <= x:
-            lo = mid + 1
-        else:
+        if li[mid] > x:
             hi = mid
+        else:
+            lo = mid + 1
     return lo
+
 
 class TestBinarySearch(unittest.TestCase):
 
@@ -45,5 +50,6 @@ class TestBinarySearch(unittest.TestCase):
         self.assertEqual(bisect_right([1, 2, 3, 5, 6], 4), 3)
         self.assertEqual(bisect_right([1, 2, 3, 3, 3, 4, 5], 3), 5)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
