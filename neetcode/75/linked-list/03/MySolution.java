@@ -1,9 +1,10 @@
 class ListNode {
+
     int val;
+
     ListNode next;
 
-    ListNode() {
-    }
+    ListNode() {}
 
     ListNode(int val) {
         this.val = val;
@@ -15,73 +16,58 @@ class ListNode {
     }
 }
 
-public class MySolution {
+class Solution {
 
     public void reorderList(ListNode head) {
-        if (head == null) {
+        if (head == null || head.next == null || head.next.next == null) {
             return;
         }
-
         ListNode middle = findMiddle(head);
-        ListNode secondHalfHead = middle.next;
+        ListNode latter = middle.next;
         middle.next = null;
-
-        ListNode reversedSecondHalfHead = reverse(secondHalfHead);
-
-        ListNode curr = head;
-        head = head.next;
-        while (head != null && reversedSecondHalfHead != null) {
-            curr.next = reversedSecondHalfHead;
-            reversedSecondHalfHead = reversedSecondHalfHead.next;
-            curr = curr.next;
-
-            curr.next = head;
-            head = head.next;
-            curr = curr.next;
-        }
-        if (reversedSecondHalfHead != null) {
-            // For when the length of the input linked list is even.
-            curr.next = reversedSecondHalfHead;
-        }
+        latter = reverse(latter);
+        mash(head, latter);
     }
 
     private ListNode findMiddle(ListNode head) {
-        if (head == null) {
-            return null;
-        }
-
         ListNode slow = head;
         ListNode fast = head;
-
         while (true) {
-            fast = fast.next;
-            if (fast == null) {
+            if (fast.next == null) {
                 break;
             }
             fast = fast.next;
-            if (fast == null) {
+            if (fast.next == null) {
                 break;
             }
+            fast = fast.next;
             slow = slow.next;
         }
-
         return slow;
     }
 
     private ListNode reverse(ListNode head) {
-        if (head == null) {
-            return null;
+        ListNode lag = head;
+        ListNode lead = lag.next;
+        while (lead != null) {
+            ListNode next = lead.next;
+            lead.next = lag;
+            lag = lead;
+            lead = next;
         }
+        head.next = null;
+        return lag;
+    }
 
-        ListNode a = null;
-        ListNode b = head;
-        while (b != null) {
-            ListNode c = b.next;
-            b.next = a;
-            a = b;
-            b = c;
+    private void mash(ListNode first, ListNode second) {
+        ListNode nextFirst, nextSecond;
+        while (second != null) {
+            nextFirst = first.next;
+            nextSecond = second.next;
+            first.next = second;
+            second.next = nextFirst;
+            first = nextFirst;
+            second = nextSecond;
         }
-
-        return a;
     }
 }
