@@ -1,9 +1,11 @@
-# 238. Product of Array Except Self
+# 659. Encode and Decode Strings
 
-https://leetcode.com/problems/product-of-array-except-self/submissions/
+https://leetcode.com/problems/encode-and-decode-strings/
+
+But with a slight twist
 
 Topics:
 
+-   Design
 -   Arrays
--   Prefix
--   Suffix
+-   Bytes
