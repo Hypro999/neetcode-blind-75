@@ -1,55 +1,46 @@
-PACIFIC_REACHABLE = 0b01
-ATLANTIC_REACHABLE = 0b10
-BOTH_REACHABLE = 0b11
-
-
 class Solution:
-    __slots__ = ("rows", "cols", "heights", "reachability", "seen")
 
     def pacificAtlantic(self, heights: list[list[int]]) -> list[list[int]]:
-        self.rows = len(heights)
-        self.cols = len(heights[0])
-        self.heights = heights
-        self.reachability = [[0] * self.cols for _ in range(self.rows)]
+        ROWS = len(heights)
+        COLS = len(heights[0])
 
-        # top right corner.
-        self.dfsSet(0, self.cols - 1, BOTH_REACHABLE, -1)
+        PACIFIC = 0b01
+        ATLANTIC = 0b10
+        BOTH = 0b11
 
-        # bottom left corner.
-        self.dfsSet(self.rows - 1, 0, BOTH_REACHABLE, -1)
+        # this will also double as "seen"
+        reachable = [[0] * COLS for _ in range(ROWS)]
 
-        # top edge
-        for c in range(0, self.cols - 1, 1):
-            self.dfsSet(0, c, PACIFIC_REACHABLE, -1)
+        directions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
 
-        # left edge
-        for r in range(0, self.rows - 1, 1):
-            self.dfsSet(r, 0, PACIFIC_REACHABLE, -1)
+        def in_bounds(i, j):
+            return i > -1 and i < ROWS and j > -1 and j < COLS
 
-        # right edge.
-        for r in range(1, self.rows, 1):
-            self.dfsSet(r, self.cols - 1, ATLANTIC_REACHABLE, -1)
+        def fill(i, j, val):
+            reachable[i][j] |= val
+            for ii, jj in directions:
+                y, x = i + ii, j + jj
+                if (
+                    (not in_bounds(y, x))
+                    or (reachable[y][x] & val == val)
+                    or (heights[i][j] > heights[y][x])
+                ):
+                    continue
+                fill(y, x, val)
 
-        # bottom edge.
-        for c in range(1, self.cols, 1):
-            self.dfsSet(self.rows - 1, c - 1, ATLANTIC_REACHABLE, -1)
+        # backtrack from the top and bottom
+        for col in range(0, COLS):
+            fill(0, col, PACIFIC)
+            fill(ROWS - 1, col, ATLANTIC)
 
-        results = []
-        for r in range(self.rows):
-            for c in range(self.cols):
-                if self.reachability[r][c] == BOTH_REACHABLE:
-                    results.append([r, c])
-        return results
+        # Backtrack from the top and bottom.
+        # We cover the top right and bottom left corners twice. This can be avoided.
+        # But we want super readable code here. So, as long as the time complexity
+        # isn't impacted, whatever goes goes.
+        for row in range(0, ROWS):
+            fill(row, 0, PACIFIC)
+            fill(row, COLS - 1, ATLANTIC)
 
-    def dfsSet(self, r: int, c: int, val: int, prev: int) -> None:
-        if r < 0 or r >= self.rows or c < 0 or c >= self.cols:
-            return
-        if self.reachability[r][c] & val == val:
-            return
-        if self.heights[r][c] < prev:
-            return
-        self.reachability[r][c] |= val
-        self.dfsSet(r - 1, c, val, self.heights[r][c])
-        self.dfsSet(r + 1, c, val, self.heights[r][c])
-        self.dfsSet(r, c - 1, val, self.heights[r][c])
-        self.dfsSet(r, c + 1, val, self.heights[r][c])
+        return [
+            [i, j] for j in range(COLS) for i in range(ROWS) if reachable[i][j] == BOTH
+        ]
