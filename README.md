@@ -1,2 +1,1 @@
-# Leetcode
-Let the grind begin 💪
+# Neetcode Blind 75
