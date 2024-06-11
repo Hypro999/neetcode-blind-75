@@ -17,14 +17,14 @@ public class PostOrderTraversalOneStack<T> implements TraversalStrategy<T> {
     public void traverse(TreeNode<T> root, Consumer<T> action) {
         exahustLeft(root);
         while (!stack.isEmpty()) {
-            TreeNode<T> top = stack.pop();
-            if (!stack.isEmpty() && stack.peek().equals(top.right)) {
+            root = stack.pop();
+            if (!stack.isEmpty() && stack.peek().equals(root.right)) {
                 TreeNode<T> right = stack.pop();
-                stack.push(top);
+                stack.push(root);
                 exahustLeft(right);
                 continue;
             }
-            action.accept(top.value);
+            action.accept(root.value);
         }
     }
 
