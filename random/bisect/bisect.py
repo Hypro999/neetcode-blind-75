@@ -10,9 +10,13 @@ def bisect_left(li, x):
         if li[mid] >= x:
             hi = mid
         else:
-            # The reason we have to do mid + 1 is because is some cases, mid is equal
-            # to lo, but mid can never be hi unless the length of the array/list is 1.
-            # This is because `// 2` will round DOWN.
+            # The reason we have to do mid + 1 is because is some cases, like in an
+            # array of size 2 (or when we get down to just 2 elements left to check in
+            # a bigger array) mid is equal to lo. But, mid can never be hi unless the
+            # length of the array/list is 1. This is because `// 2` will round DOWN.
+            #
+            # Another reason we do `hi = mid` and `lo = mid + 1` is because hi is an
+            # exclusive index and lo is an inclusive index.
             lo = mid + 1
     return lo
 
