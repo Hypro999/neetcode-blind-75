@@ -1,18 +1,17 @@
 package algorithms;
 
+import structures.TreeNode;
+
 import java.util.Stack;
 import java.util.function.Consumer;
 
-import structures.TreeNode;
-
-
-public class PostOrderTraversal<T> implements TraversalStrategy<T> {
+public class PostOrderTraversalTwoStacks<T> implements TraversalStrategy<T> {
 
     private Stack<TreeNode<T>> orderedStack;
 
     private Stack<TreeNode<T>> traversalStack;
 
-    public PostOrderTraversal() {
+    public PostOrderTraversalTwoStacks() {
         this.orderedStack = new Stack<>();
         this.traversalStack = new Stack<>();
     }
