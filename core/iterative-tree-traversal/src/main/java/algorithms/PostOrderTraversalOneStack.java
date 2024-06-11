@@ -22,9 +22,9 @@ public class PostOrderTraversalOneStack<T> implements TraversalStrategy<T> {
                 TreeNode<T> right = stack.pop();
                 stack.push(top);
                 exahustLeft(right);
-            } else {
-                action.accept(top.value);
+                continue;
             }
+            action.accept(top.value);
         }
     }
 
